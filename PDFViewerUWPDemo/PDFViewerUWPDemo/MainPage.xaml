@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="PDFViewerUWP_PDFTron.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Width="800" Height="600"
+    Background="Gray">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="60"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal" Background="LightGray">
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
+
+                <Button Command="{Binding CMDOpenFile}" Width="60" Height="50" Margin="0 0 4 0">
+                    <StackPanel>
+                        <SymbolIcon Symbol="OpenFile" Height="20"/>
+                        <TextBlock Text="Open" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding CMDPreviousPage}" Width="60" Height="50" Margin="0 0 4 0">
+                    <StackPanel>
+                        <SymbolIcon Symbol="Previous" Height="20"/>
+                        <TextBlock Text="Previous" FontSize="11"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding CMDNextPage}" Width="60" Height="50" >
+                    <StackPanel>
+                        <SymbolIcon Symbol="Next" Height="20"/>
+                        <TextBlock Text="Next" FontSize="11"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Orientation="Horizontal" Background="LightGray">
+            <Button Command="{Binding CMDExitApplication}" Width="60" Height="50" Margin="0 0 4 0">
+                <StackPanel>
+                    <SymbolIcon Symbol="Cancel" Height="20"/>
+                    <TextBlock Text="Exit" FontSize="11"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <Border Grid.Row="1" Grid.ColumnSpan="2" Child="{Binding PDFViewCtrl}"/>
+
+    </Grid>
+</Page>
