@@ -157,10 +157,10 @@
       <Version>6.2.10</Version>
     </PackageReference>
     <PackageReference Include="PDFTron.UWP">
-      <Version>8.0.1</Version>
+      <Version>8.0.2</Version>
     </PackageReference>
     <PackageReference Include="PDFTron.UWP.Tools">
-      <Version>8.0.1</Version>
+      <Version>8.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
