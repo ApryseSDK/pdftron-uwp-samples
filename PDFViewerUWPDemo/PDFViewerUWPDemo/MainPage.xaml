@@ -55,7 +55,7 @@
                     </StackPanel>
                 </Button>
 
-                <ToggleButton IsChecked="{Binding LockZoom, Mode=TwoWay}" Width="70" Height="50">
+                <ToggleButton IsChecked="{Binding LockZoom, Mode=TwoWay}" Width="75" Height="50">
                     <StackPanel>
                         <SymbolIcon Symbol="Zoom" Height="20"/>
                         <TextBlock Text="Lock Zoom" FontSize="11"/>
