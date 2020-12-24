@@ -27,19 +27,40 @@
                     </StackPanel>
                 </Button>
 
-                <Button Command="{Binding CMDPreviousPage}" Width="60" Height="50" Margin="0 0 4 0">
+                <Button Command="{Binding CMDPreviousPage}" Width="65" Height="50" Margin="0 0 4 0">
                     <StackPanel>
                         <SymbolIcon Symbol="Previous" Height="20"/>
                         <TextBlock Text="Previous" FontSize="11"/>
                     </StackPanel>
                 </Button>
 
-                <Button Command="{Binding CMDNextPage}" Width="60" Height="50" >
+                <Button Command="{Binding CMDNextPage}" Width="65" Height="50" Margin="0 0 4 0">
                     <StackPanel>
                         <SymbolIcon Symbol="Next" Height="20"/>
                         <TextBlock Text="Next" FontSize="11"/>
                     </StackPanel>
                 </Button>
+
+                <Button Command="{Binding CMDZoomIn}" Width="70" Height="50" Margin="0 0 4 0">
+                    <StackPanel>
+                        <SymbolIcon Symbol="ZoomIn" Height="20"/>
+                        <TextBlock Text="Zoom In" FontSize="11"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding CMDZoomOut}" Width="70" Height="50" Margin="0 0 4 0">
+                    <StackPanel>
+                        <SymbolIcon Symbol="ZoomOut" Height="20"/>
+                        <TextBlock Text="Zoom Out" FontSize="11"/>
+                    </StackPanel>
+                </Button>
+
+                <ToggleButton IsChecked="{Binding LockZoom, Mode=TwoWay}" Width="70" Height="50">
+                    <StackPanel>
+                        <SymbolIcon Symbol="Zoom" Height="20"/>
+                        <TextBlock Text="Lock Zoom" FontSize="11"/>
+                    </StackPanel>
+                </ToggleButton>
             </StackPanel>
         </StackPanel>
 
