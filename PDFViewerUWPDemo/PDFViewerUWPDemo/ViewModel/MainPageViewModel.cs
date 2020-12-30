@@ -40,8 +40,14 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             // Set control background color to gray
             PDFViewCtrl.SetBackgroundColor(Windows.UI.Color.FromArgb(100, 49, 51, 53));
 
+            // Initialize PDFView with a PDF document to be displayed
+            PDFDoc doc = new PDFDoc("Resources/GettingStarted.pdf");
+            PDFViewCtrl.SetDoc(doc);
+
             // ToolManager is initialized with the PDFViewCtrl and it activates all available tools
             _toolManagerPDF = new ToolManager(PDFViewCtrl);
+            // AnnotationCommandBar is initialized with the ToolManager so it can attach all events to it
+            _AnnotationCommandBar = new AnnotationCommandBar(_toolManagerPDF);
         }
 
         #region Public Properties

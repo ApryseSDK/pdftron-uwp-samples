@@ -9,6 +9,7 @@
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -73,7 +74,9 @@
             </Button>
         </StackPanel>
 
-        <Border Grid.Row="1" Grid.ColumnSpan="2" Child="{Binding PDFViewCtrl}"/>
+        <Border Grid.Row="1" Grid.ColumnSpan="2" Child="{Binding AnnotationCommandBar}"/>
+
+        <Border Grid.Row="2" Grid.ColumnSpan="2" Child="{Binding PDFViewCtrl}"/>
 
     </Grid>
 </Page>
