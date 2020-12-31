@@ -46,6 +46,11 @@ namespace PDFViewerUWP_PDFTron.ViewModel
 
             // ToolManager is initialized with the PDFViewCtrl and it activates all available tools
             _toolManagerPDF = new ToolManager(PDFViewCtrl);
+
+            // Set Undo and Redo Manager
+            UndoRedoManager undoRedoManager = new UndoRedoManager();
+            _toolManagerPDF.SetUndoRedoManager(undoRedoManager);
+
             // AnnotationCommandBar is initialized with the ToolManager so it can attach all events to it
             _AnnotationCommandBar = new AnnotationCommandBar(_toolManagerPDF);
         }
