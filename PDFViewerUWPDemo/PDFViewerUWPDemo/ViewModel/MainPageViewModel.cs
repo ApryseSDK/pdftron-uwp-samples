@@ -53,6 +53,9 @@ namespace PDFViewerUWP_PDFTron.ViewModel
 
             // AnnotationCommandBar is initialized with the ToolManager so it can attach all events to it
             _AnnotationCommandBar = new AnnotationCommandBar(_toolManagerPDF);
+
+            // ThumbnailViewer is initialized by passing the PDFViewerCtrl and a document tag/name
+            ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, "GettingStarted");
         }
 
         #region Public Properties
@@ -69,6 +72,38 @@ namespace PDFViewerUWP_PDFTron.ViewModel
         {
             get { return _AnnotationCommandBar; }
             set { _AnnotationCommandBar = value; NotifyPropertyChanged(); }
+        }
+
+        private pdftron.PDF.Tools.Controls.ViewModels.ThumbnailsViewViewModel.PageAddedDelegate _ThumbnailViewerPageAddedDelegate = null;
+
+        ThumbnailViewer _ThumbnailViewer;
+        public ThumbnailViewer ThumbnailViewer
+        {
+            get { return _ThumbnailViewer; }
+            set
+            {
+                _ThumbnailViewer = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        bool _ShowThumbnails = false;
+
+        public bool ShowThumbnails
+        {
+            get { return _ShowThumbnails; }
+            set
+            {
+                _ShowThumbnails = value;
+
+                NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(IsThumbnailOpen));
+            }
+        }
+
+        public Visibility IsThumbnailOpen
+        {
+            get { return (ShowThumbnails == true ? Visibility.Visible : Visibility.Collapsed); }
         }
 
         bool _lockZoomMouse = false;
@@ -138,6 +173,8 @@ namespace PDFViewerUWP_PDFTron.ViewModel
 
                 // Set loaded doc to PDFView Controler 
                 PDFViewCtrl.SetDoc(doc);
+
+                ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, file.Path);
             }
         }
 

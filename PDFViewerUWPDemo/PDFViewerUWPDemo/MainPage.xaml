@@ -11,6 +11,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -56,12 +57,25 @@
                     </StackPanel>
                 </Button>
 
-                <ToggleButton IsChecked="{Binding LockZoom, Mode=TwoWay}" Width="75" Height="50">
+                <ToggleButton IsChecked="{Binding LockZoom, Mode=TwoWay}"
+                              Width="75"
+                              Height="50"
+                              Margin="0 0 4 0">
                     <StackPanel>
                         <SymbolIcon Symbol="Zoom" Height="20"/>
                         <TextBlock Text="Lock Zoom" FontSize="11"/>
                     </StackPanel>
                 </ToggleButton>
+
+                <ToggleButton IsChecked="{Binding ShowThumbnails, Mode=TwoWay}"
+                              Width="76"
+                              Height="50">
+                    <StackPanel>
+                        <SymbolIcon Symbol="Pictures" Height="20"/>
+                        <TextBlock Text="Thumbnails" FontSize="11"/>
+                    </StackPanel>
+                </ToggleButton>
+
             </StackPanel>
         </StackPanel>
 
@@ -78,5 +92,7 @@
 
         <Border Grid.Row="2" Grid.ColumnSpan="2" Child="{Binding PDFViewCtrl}"/>
 
+        <Border Grid.Row="3" Grid.ColumnSpan="2" Child="{Binding ThumbnailViewer}" 
+                Visibility="{Binding IsThumbnailOpen}"/>
     </Grid>
 </Page>
