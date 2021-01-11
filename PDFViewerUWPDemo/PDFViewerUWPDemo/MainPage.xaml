@@ -15,12 +15,13 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="60"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Horizontal" Background="LightGray">
-            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" Background="LightGray">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
 
                 <Button Command="{Binding CMDOpenFile}" Width="60" Height="50" Margin="0 0 4 0">
                     <StackPanel>
@@ -79,7 +80,7 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Orientation="Horizontal" Background="LightGray">
+        <StackPanel Grid.Column="2" Orientation="Horizontal" Background="LightGray">
             <Button Command="{Binding CMDExitApplication}" Width="60" Height="50" Margin="0 0 4 0">
                 <StackPanel>
                     <SymbolIcon Symbol="Cancel" Height="20"/>
@@ -88,11 +89,17 @@
             </Button>
         </StackPanel>
 
-        <Border Grid.Row="1" Grid.ColumnSpan="2" Child="{Binding AnnotationCommandBar}"/>
+        <Border Grid.Row="1"
+                Grid.ColumnSpan="3"
+                Child="{Binding AnnotationCommandBar}"/>
 
-        <Border Grid.Row="2" Grid.ColumnSpan="2" Child="{Binding PDFViewCtrl}"/>
+        <Border Grid.Row="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Child="{Binding PDFViewCtrl}"/>
 
-        <Border Grid.Row="3" Grid.ColumnSpan="2" Child="{Binding ThumbnailViewer}" 
+        <Border Grid.Row="2" 
+                Child="{Binding ThumbnailViewer}" 
                 Visibility="{Binding IsThumbnailOpen}"/>
     </Grid>
 </Page>

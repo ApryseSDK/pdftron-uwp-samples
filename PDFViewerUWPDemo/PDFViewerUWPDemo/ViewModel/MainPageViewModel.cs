@@ -55,7 +55,7 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             _AnnotationCommandBar = new AnnotationCommandBar(_toolManagerPDF);
 
             // ThumbnailViewer is initialized by passing the PDFViewerCtrl and a document tag/name
-            ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, "GettingStarted");
+            ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, "GettingStarted");            
         }
 
         #region Public Properties
@@ -74,15 +74,23 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             set { _AnnotationCommandBar = value; NotifyPropertyChanged(); }
         }
 
-        private pdftron.PDF.Tools.Controls.ViewModels.ThumbnailsViewViewModel.PageAddedDelegate _ThumbnailViewerPageAddedDelegate = null;
-
         ThumbnailViewer _ThumbnailViewer;
         public ThumbnailViewer ThumbnailViewer
         {
             get { return _ThumbnailViewer; }
             set
             {
+                if (_ThumbnailViewer != null && _ThumbnailViewer != value)
+                    _ThumbnailViewer.ViewModel.CleanUp();
+                
                 _ThumbnailViewer = value;
+
+                ThumbnailViewer.Width = 250;
+                ThumbnailViewer.ListViewItemWidth = 250;
+                ThumbnailViewer.NumberOfColumns = 2;
+                ThumbnailViewer.FitItemsToWidth = true;
+                ThumbnailViewer.NavigationOnly = true;                
+
                 NotifyPropertyChanged();
             }
         }
