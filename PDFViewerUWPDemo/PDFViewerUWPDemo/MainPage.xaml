@@ -30,6 +30,16 @@
                     </StackPanel>
                 </Button>
 
+                <Button Command="{Binding CMDSaveDocAs}"
+                        Width="70"
+                        Height="50"
+                        Margin="0 0 4 0">
+                    <StackPanel>
+                        <SymbolIcon Symbol="Save" Height="20"/>
+                        <TextBlock Text="Save as" FontSize="11"/>
+                    </StackPanel>
+                </Button>
+
                 <Button Command="{Binding CMDPreviousPage}" Width="65" Height="50" Margin="0 0 4 0">
                     <StackPanel>
                         <SymbolIcon Symbol="Previous" Height="20"/>

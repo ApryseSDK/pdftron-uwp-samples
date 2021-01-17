@@ -11,6 +11,7 @@ using Windows.ApplicationModel.Core;
 using pdftron.PDF;
 using pdftron.PDF.Tools;
 using pdftron.PDF.Tools.Controls;
+using System.Collections.Generic;
 
 namespace PDFViewerUWP_PDFTron.ViewModel
 {
@@ -36,6 +37,7 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             CMDNextPage = new RelayCommand(NextPage);
             CMDZoomIn = new RelayCommand(ZoomIn);
             CMDZoomOut = new RelayCommand(ZoomOut);
+            CMDSaveDocAs = new RelayCommand(SaveDocAs);
 
             // Set control background color to gray
             PDFViewCtrl.SetBackgroundColor(Windows.UI.Color.FromArgb(100, 49, 51, 53));
@@ -147,6 +149,8 @@ namespace PDFViewerUWP_PDFTron.ViewModel
         public ICommand CMDZoomIn { get; set; }
 
         public ICommand CMDZoomOut { get; set; }
+
+        public ICommand CMDSaveDocAs { get; set; }
         #endregion
 
         #region Operations
@@ -161,29 +165,30 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             filePicker.FileTypeFilter.Add(".pdf");
 
             StorageFile file = await filePicker.PickSingleFileAsync();
-            if (file != null)
+
+            if (file == null)
+                return;
+            
+            Windows.Storage.Streams.IRandomAccessStream stream;
+            try
             {
-                Windows.Storage.Streams.IRandomAccessStream stream;
-                try
-                {
-                    stream = await file.OpenAsync(FileAccessMode.ReadWrite);
-                }
-                catch(Exception e) 
-                {
-                    // NOTE: If file already opened it will cause an exception
-                    var msg = new MessageDialog(e.Message);
-                    _ = msg.ShowAsync();
-                    return; 
-                }
-
-                PDFDoc doc = new PDFDoc(stream);
-                doc.InitSecurityHandler();
-
-                // Set loaded doc to PDFView Controler 
-                PDFViewCtrl.SetDoc(doc);
-
-                ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, file.Path);
+                stream = await file.OpenAsync(FileAccessMode.ReadWrite);
             }
+            catch (Exception e)
+            {
+                // NOTE: If file already opened it will cause an exception
+                var msg = new MessageDialog(e.Message);
+                _ = msg.ShowAsync();
+                return;
+            }
+
+            PDFDoc doc = new PDFDoc(stream);
+            doc.InitSecurityHandler();
+
+            // Set loaded doc to PDFView Controler 
+            PDFViewCtrl.SetDoc(doc);
+
+            ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, file.Path);
         }
 
         private void TextAnnotationSample()
@@ -238,6 +243,28 @@ namespace PDFViewerUWP_PDFTron.ViewModel
                 PDFViewCtrl.SetZoom(width, height, currentZoom * zoomFactor);
             else
                 PDFViewCtrl.SetZoom(width, height, currentZoom / zoomFactor);           
+        }
+
+        private void SaveDocAs()
+        {
+            if (!PDFViewCtrl.HasDocument)
+                return;
+
+            var doc = PDFViewCtrl.GetDoc();
+
+            _ = PerformSave(doc);
+        }
+
+        private async Task PerformSave(PDFDoc doc)
+        {
+            // Start File Picker so we can SaveAs/Export document
+            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+            savePicker.FileTypeChoices.Add("PDF", new List<string> { ".pdf" });
+
+            var storageFile = await savePicker.PickSaveFileAsync();
+
+            if (storageFile != null)
+                await doc.SaveToNewLocationAsync(storageFile, pdftron.SDF.SDFDocSaveOptions.e_incremental);
         }
 
         #endregion
