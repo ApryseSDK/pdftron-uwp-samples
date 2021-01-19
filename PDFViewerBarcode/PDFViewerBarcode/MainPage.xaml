@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="PDFViewerBarcode.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PDFViewerBarcode"    
+    xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:control="using:PDFViewerBarcode.Control"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVis"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal"
+                    Margin="0 0 0 0"
+                    Background="LightGray">
+            <Button Width="45" 
+                    Height="50"
+                    Margin="5 5 4 5"
+                    Command="{Binding CMDOpenFile}">
+                <StackPanel>
+                    <SymbolIcon Symbol="OpenFile" Height="20"/>
+                    <TextBlock Text="Open" FontSize="10" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="1"
+                    Background="LightGray">
+
+            <ToggleButton Command="{Binding CMDAddBarCode}"
+                          IsChecked="{Binding IsAddBarcodeSelected, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"                          
+                          Margin="5 0 0 0"
+                          Width="45"
+                          HorizontalAlignment="Center">
+                <StackPanel>
+                    <Image Source="Assets/qr_code-24px.svg"
+                           Height="25"/>
+                    <TextBlock Text="Add"
+                               FontSize="10"/>
+                </StackPanel>
+            </ToggleButton>
+
+        </StackPanel>
+        
+        <Border Grid.Row="2"
+                x:Name="border"
+                Child="{Binding PDFViewCtrl}"/>
+    </Grid>
+</Page>
