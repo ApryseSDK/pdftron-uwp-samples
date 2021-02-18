@@ -6,9 +6,9 @@ This repository contains sample projects using different features of the PDFTron
 
 | Sample | Description |
 |--|--|
-|[PDFViewerUWPDemo](./PDFViewerUWPDemo)| Viewer integration using PDFViewCtrl and Annotation Tool Bar
 |[PDFViewerBarcode](./PDFViewerBarcode)| Generate and Stamp barcode/QR code in PDF files
-
+|[PDFViewerControl](./PDFViewerControl)| Demonstrate how to implement ViewerControl on UWP application
+|[PDFViewerUWPDemo](./PDFViewerUWPDemo)| Viewer integration using PDFViewCtrl and Annotation Tool Bar
 
 ## Contributing
 
