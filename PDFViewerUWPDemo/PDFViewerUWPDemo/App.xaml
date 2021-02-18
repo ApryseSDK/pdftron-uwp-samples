@@ -7,7 +7,6 @@
     <Application.Resources>
         <ResourceDictionary>
             <!-- Note: Override Generic AppBar or/and CommandBar default compact height value -->
-            <x:Double x:Key="AppBarThemeCompactHeight">48</x:Double>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
