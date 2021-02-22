@@ -4,9 +4,4 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PDFViewerUWP_PDFTron">
 
-    <Application.Resources>
-        <ResourceDictionary>
-            <!-- Note: Override Generic AppBar or/and CommandBar default compact height value -->
-        </ResourceDictionary>
-    </Application.Resources>
 </Application>
