@@ -16,6 +16,8 @@ This sample demonstrate how to implement the ViewerControl on a UWP application
 
 Platforms: x86, x64, ARM32 and ARM64
 
+Guide: https://www.pdftron.com/documentation/uwp/guides/using-viewercontrol/
+
 ![main-page](./art/main_page.png)
 
 ## Project structure
