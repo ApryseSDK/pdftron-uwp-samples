@@ -1,6 +1,18 @@
 # PDFViewer Sample
 
-This sample demonstrate how to implement the ViewerControl to a UWP application
+This sample demonstrate how to implement the ViewerControl on a UWP application
+
+### Features
+- Open multiples PDFs
+- Edit, Re-order, Duplicate, Delete and Export PDF pages
+- Multiple color modes (Dark, Sepia, Light, Custom colors)
+- Reduce PDF File size
+- Search text
+- Reflow Mode (Read mode)
+- Encrypt PDF by adding password
+- Print PDF file
+- Share PDF file
+- Annotation Toolbar with multiples tools
 
 Platforms: x86, x64, ARM32 and ARM64
 
