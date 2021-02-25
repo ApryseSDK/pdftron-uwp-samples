@@ -3,6 +3,7 @@
 This sample demonstrate how to implement the ViewerControl on a UWP application
 
 ### Features
+- Convert differernt formats to PDF : .doc, .docx, .ppt, .pptx, .xls, .xlsx, .oxps, .xps, .jpeg, .jpg, .png, .bmp, .cbz
 - Open multiples PDFs
 - Edit, Re-order, Duplicate, Delete and Export PDF pages
 - Multiple color modes (Dark, Sepia, Light, Custom colors)
