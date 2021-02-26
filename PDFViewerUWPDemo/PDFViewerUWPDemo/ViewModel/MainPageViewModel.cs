@@ -12,6 +12,8 @@ using pdftron.PDF;
 using pdftron.PDF.Tools;
 using pdftron.PDF.Tools.Controls;
 using System.Collections.Generic;
+using pdftron.Filters;
+using Windows.ApplicationModel;
 
 namespace PDFViewerUWP_PDFTron.ViewModel
 {
@@ -31,6 +33,7 @@ namespace PDFViewerUWP_PDFTron.ViewModel
         {
             // Initialize commands
             CMDOpenFile = new RelayCommand(OpenFile);
+            CMDConvertFile = new RelayCommand(ConvertFile);
             CMDExitApplication = new RelayCommand(ExitApplication);
             CMDTextAnnotation = new RelayCommand(TextAnnotationSample);
             CMDPreviousPage = new RelayCommand(PreviousPage);
@@ -57,7 +60,10 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             _AnnotationCommandBar = new AnnotationCommandBar(_toolManagerPDF);
 
             // ThumbnailViewer is initialized by passing the PDFViewerCtrl and a document tag/name
-            ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, "GettingStarted");            
+            ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, "GettingStarted");
+
+            // Set up resource path for conversion
+            pdftron.PDFNet.AddResourceSearchPath(System.IO.Path.Combine(Package.Current.InstalledLocation.Path, "Resources"));
         }
 
         #region Public Properties
@@ -136,8 +142,10 @@ namespace PDFViewerUWP_PDFTron.ViewModel
         #endregion
 
         #region Public Commands
-        public ICommand CMDOpenFile { get; set; }  
-        
+        public ICommand CMDOpenFile { get; set; }
+
+        public ICommand CMDConvertFile { get; set; }
+
         public ICommand CMDExitApplication { get; set; }
 
         public ICommand CMDTextAnnotation { get; set; }
@@ -185,11 +193,53 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             PDFDoc doc = new PDFDoc(stream);
             doc.InitSecurityHandler();
 
+            
+
             // Set loaded doc to PDFView Controler 
             PDFViewCtrl.SetDoc(doc);
 
             ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, file.Path);
         }
+
+        async private void ConvertFile()
+        {
+            FileOpenPicker filePicker = new FileOpenPicker();
+            filePicker.ViewMode = PickerViewMode.List;
+            filePicker.FileTypeFilter.Add(".doc");
+            filePicker.FileTypeFilter.Add(".docx");
+
+            StorageFile file = await filePicker.PickSingleFileAsync();
+
+            if (file == null)
+                return;
+
+            Windows.Storage.Streams.IRandomAccessStream stream;
+            try
+            {
+                stream = await file.OpenAsync(FileAccessMode.ReadWrite);
+            }
+            catch (Exception e)
+            {
+                // NOTE: If file already opened it will cause an exception
+                var msg = new MessageDialog(e.Message);
+                _ = msg.ShowAsync();
+                return;
+            }
+
+            // Convert Logic
+            IFilter filter = new RandomAccessStreamFilter(stream);
+            WordToPDFOptions opts = new WordToPDFOptions();
+            DocumentConversion conversion = pdftron.PDF.Convert.UniversalConversion(filter, opts);
+
+            conversion.Convert();
+            PDFDoc doc = conversion.GetDoc();
+            doc.InitSecurityHandler();
+            
+            PDFViewCtrl.SetDoc(doc);
+
+            ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, file.Path);
+        }
+
 
         private void TextAnnotationSample()
         {

@@ -30,6 +30,13 @@
                     </StackPanel>
                 </Button>
 
+                <Button Command="{Binding CMDConvertFile}" Width="60" Height="50" Margin="0 0 4 0">
+                    <StackPanel>
+                        <SymbolIcon Symbol="Document" Height="20"/>
+                        <TextBlock Text="Convert" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
                 <Button Command="{Binding CMDSaveDocAs}"
                         Width="70"
                         Height="50"
