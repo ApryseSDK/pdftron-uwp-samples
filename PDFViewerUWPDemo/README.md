@@ -2,6 +2,11 @@
 
 This sample demonstrate how to implement the PDFViewer on a UWP app using MVVM pattern.
 
+Some of the features:
+- Thumbnails View Control
+- Annotation Toolbar
+- Conversion different formats to PDF
+
 Platforms: x86, x64, ARM32 and ARM64
 
 ![main-page](./art/main-page.png)
