@@ -7,13 +7,16 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Resources;
+using Windows.Graphics.Printing;
 
 using pdftron.PDF;
 using pdftron.PDF.Tools;
 using pdftron.PDF.Tools.Controls;
 using System.Collections.Generic;
 using pdftron.Filters;
-using Windows.ApplicationModel;
+
 
 namespace PDFViewerUWP_PDFTron.ViewModel
 {
@@ -21,6 +24,7 @@ namespace PDFViewerUWP_PDFTron.ViewModel
     {
         #region Private Properties
         ToolManager _toolManagerPDF;
+        PDFPrintManager _printManager;
         #endregion
 
         #region Defaults
@@ -34,6 +38,7 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             // Initialize commands
             CMDOpenFile = new RelayCommand(OpenFile);
             CMDConvertFile = new RelayCommand(ConvertFile);
+            CMDPrintDoc = new RelayCommand(PrintDoc);
             CMDExitApplication = new RelayCommand(ExitApplication);
             CMDTextAnnotation = new RelayCommand(TextAnnotationSample);
             CMDPreviousPage = new RelayCommand(PreviousPage);
@@ -64,7 +69,33 @@ namespace PDFViewerUWP_PDFTron.ViewModel
 
             // Set up resource path for conversion
             pdftron.PDFNet.AddResourceSearchPath(System.IO.Path.Combine(Package.Current.InstalledLocation.Path, "Resources"));
+
+            // Set up Print Manager
+            InitPrintManager();
+
         }
+
+        #region Init
+        private void InitPrintManager()
+        {
+            _printManager = PDFPrintManager.GetInstance();
+
+            // Load resources from "/Strings/en-US/Printing.resw"
+            ResourceLoader loader = ResourceLoader.GetForCurrentView("/Printing");
+            _printManager.SetResourceLoader(loader);
+
+            // standard options
+            _printManager.AddStandardPrintOption(StandardPrintTaskOptions.MediaSize);
+            _printManager.AddStandardPrintOption(StandardPrintTaskOptions.Orientation);
+            _printManager.AddStandardPrintOption(StandardPrintTaskOptions.Copies);
+
+            // PDFTron options
+            _printManager.AddUserOptionAnnotations();
+            _printManager.AddUserOptionAutoRotate();
+            _printManager.AddUserOptionPageRange();
+        }
+
+        #endregion
 
         #region Public Properties
 
@@ -146,6 +177,8 @@ namespace PDFViewerUWP_PDFTron.ViewModel
 
         public ICommand CMDConvertFile { get; set; }
 
+        public ICommand CMDPrintDoc { get; set; }
+
         public ICommand CMDExitApplication { get; set; }
 
         public ICommand CMDTextAnnotation { get; set; }
@@ -201,6 +234,9 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, file.Path);
         }
 
+        /// <summary>
+        /// Convert a document to PDF format
+        /// </summary>
         async private void ConvertFile()
         {
             FileOpenPicker filePicker = new FileOpenPicker();
@@ -243,7 +279,31 @@ namespace PDFViewerUWP_PDFTron.ViewModel
                 ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, file.Path);
             }
         }
+              
+        /// <summary>
+        /// Bring Print Manager Dialog for printing the document
+        /// </summary>
+        private async void PrintDoc()
+        {
+            if (PDFViewCtrl.HasDocument == false)
+                return;
 
+            var doc = PDFViewCtrl.GetDoc();
+            var fileName = doc.GetFileName();
+
+            // Register current loaded document for printing
+            _printManager.RegisterForPrintingContract(doc, fileName);
+
+            try
+            {
+                // bring the Windows Print Dialog
+                await PrintManager.ShowPrintUIAsync();
+            }
+            catch
+            {
+                //Swallow exception
+            }
+        }
 
         private void TextAnnotationSample()
         {

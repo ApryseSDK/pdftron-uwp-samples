@@ -47,6 +47,16 @@
                     </StackPanel>
                 </Button>
 
+                <Button Command="{Binding CMDPrintDoc}"
+                        Width="70"
+                        Height="50"
+                        Margin="0 0 4 0">
+                    <StackPanel>
+                        <SymbolIcon Symbol="Print" Height="20"/>
+                        <TextBlock Text="Print" FontSize="11"/>
+                    </StackPanel>
+                </Button>
+
                 <Button Command="{Binding CMDPreviousPage}" Width="65" Height="50" Margin="0 0 4 0">
                     <StackPanel>
                         <SymbolIcon Symbol="Previous" Height="20"/>
