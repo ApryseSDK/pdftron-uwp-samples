@@ -231,13 +231,17 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             WordToPDFOptions opts = new WordToPDFOptions();
             DocumentConversion conversion = pdftron.PDF.Convert.UniversalConversion(filter, opts);
 
-            conversion.Convert();
-            PDFDoc doc = conversion.GetDoc();
-            doc.InitSecurityHandler();
-            
-            PDFViewCtrl.SetDoc(doc);
+            var convRslt = conversion.TryConvert();
 
-            ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, file.Path);
+            if (convRslt == DocumentConversionResult.e_document_conversion_success)
+            {
+                PDFDoc doc = conversion.GetDoc();
+                doc.InitSecurityHandler();
+
+                PDFViewCtrl.SetDoc(doc);
+
+                ThumbnailViewer = new ThumbnailViewer(PDFViewCtrl, file.Path);
+            }
         }
 
 
