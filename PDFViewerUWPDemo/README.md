@@ -6,6 +6,7 @@ Some of the features:
 - Thumbnails View Control
 - Annotation Toolbar
 - Conversion different formats to PDF
+- Print PDF document
 
 Platforms: x86, x64, ARM32 and ARM64
 
