@@ -16,7 +16,7 @@ using pdftron.PDF.Tools;
 using pdftron.PDF.Tools.Controls;
 using System.Collections.Generic;
 using pdftron.Filters;
-
+using Windows.ApplicationModel.DataTransfer;
 
 namespace PDFViewerUWP_PDFTron.ViewModel
 {
@@ -53,6 +53,10 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             // Initialize PDFView with a PDF document to be displayed
             PDFDoc doc = new PDFDoc("Resources/GettingStarted.pdf");
             PDFViewCtrl.SetDoc(doc);
+
+            PDFViewCtrl.AllowDrop = true;
+            PDFViewCtrl.Drop += PDFViewCtrl_Drop;
+            PDFViewCtrl.DragOver += PDFViewCtrl_DragOver;
 
             // ToolManager is initialized with the PDFViewCtrl and it activates all available tools
             _toolManagerPDF = new ToolManager(PDFViewCtrl);
@@ -207,13 +211,18 @@ namespace PDFViewerUWP_PDFTron.ViewModel
 
             StorageFile file = await filePicker.PickSingleFileAsync();
 
+            await OpenFilePDFViewer(file, FileAccessMode.ReadWrite);
+        }
+
+        private async Task OpenFilePDFViewer(IStorageFile file, FileAccessMode mode)
+        {
             if (file == null)
                 return;
-            
+
             Windows.Storage.Streams.IRandomAccessStream stream;
             try
             {
-                stream = await file.OpenAsync(FileAccessMode.ReadWrite);
+                stream = await file.OpenAsync(mode);
             }
             catch (Exception e)
             {
@@ -225,8 +234,6 @@ namespace PDFViewerUWP_PDFTron.ViewModel
 
             PDFDoc doc = new PDFDoc(stream);
             doc.InitSecurityHandler();
-
-            
 
             // Set loaded doc to PDFView Controler 
             PDFViewCtrl.SetDoc(doc);
@@ -415,6 +422,36 @@ namespace PDFViewerUWP_PDFTron.ViewModel
                 }
             }
             e.Handled = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void PDFViewCtrl_DragOver(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+            e.DragUIOverride.Caption = "Open PDF file";
+        }
+
+        /// <summary>
+        /// Handle drang and drop PDF file onto PDFViewCtrl
+        /// </summary>>
+        private async void PDFViewCtrl_Drop(object sender, DragEventArgs e)
+        {
+            if (e.DataView.Contains(StandardDataFormats.StorageItems))
+            {
+                IReadOnlyList<IStorageItem> items = await e.DataView.GetStorageItemsAsync();
+                if (items.Count == 1)
+                {
+                    StorageFile storageFile = items[0] as StorageFile;
+
+                    if (storageFile.FileType.Equals(".pdf", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // Note: Drag and drop on UWP only allows Read-Only access
+                        await OpenFilePDFViewer(storageFile, FileAccessMode.Read);
+                    }
+                }
+            }
         }
         #endregion
     }
