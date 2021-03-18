@@ -7,6 +7,7 @@ Some of the features:
 - Annotation Toolbar
 - Conversion different formats to PDF
 - Print PDF document
+- Drag and Drop PDF files
 
 Platforms: x86, x64, ARM32 and ARM64
 
