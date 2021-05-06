@@ -11,7 +11,7 @@ Compare the text of two PDF documents and display the result on a dialog
 
 ![text-diff](./art/main-page-text-diff.png)
 
-![text-diff2](./art/main-page-text-diff2.png)
+![text-diff2](./art/main-page-text-diff-result.png)
 
 Visual Diff Sample
 
@@ -21,7 +21,7 @@ Note: Please load the sample documents diff_doc_1 and diff_doc_2 to run the Visu
 
 ![visual-diff](./art/main-page-visual-diff.png)
 
-![visual-diff2](./art/main-page-visual-diff2.png)
+![visual-diff2](./art/main-page-visual-diff-result.png)
 
 ## Project structure
 ```
