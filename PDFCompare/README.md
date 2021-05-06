@@ -13,7 +13,7 @@ Compare the text of two PDF documents and display the result on a dialog
 
 ![text-diff2](./art/main-page-text-diff-result.png)
 
-Visual Diff Sample
+## Visual Diff Sample
 
 Compare the visual differences of two blueprints (PDF documents) and display the result on a dialog
 
