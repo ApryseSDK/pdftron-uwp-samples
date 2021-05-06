@@ -1,6 +1,6 @@
-# HTML to PDF Sample
+# PDF to Word Sample
 
-This sample demonstrate how to convert HTML to PDF using our EasyPDF Cloud service.
+This sample demonstrate how to convert a PDF to Word (.docx) using our EasyPDF Cloud service.
 
 Platforms: x86, x64, ARM32 and ARM64
 
@@ -8,8 +8,8 @@ Platforms: x86, x64, ARM32 and ARM64
 
 ## Project structure
 ```
-HTML2PDF_Cloud/
-	HTML2PDF_Cloud/
+Pdf2Word_cloud/
+	Pdf2Word_cloud/
 		Assets/							- App resources
 		Properties/				
 		ViewModel/						- MVVM files
@@ -17,9 +17,9 @@ HTML2PDF_Cloud/
 		App.xaml.cs
 		MainPage.xaml					- Main app page
 		MainPage.xaml.cs
-		HTML2PDF_Cloud.csproj
+		Pdf2Word_cloud.csproj
 		Package.appxmanifest
-	HTML2PDF_Cloud.sln
+	Pdf2Word_cloud.sln
 ```
 
 ## Running the Sample

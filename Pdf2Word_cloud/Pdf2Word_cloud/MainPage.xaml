@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="Pdf2Word_cloud.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Pdf2Word_cloud"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="60"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" Background="LightGray">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
+
+                <Button Width="70"
+                        Height="50"
+                        Margin="4 0 4 0"  
+                        Content="Convert"
+                        CornerRadius="5"
+                        Command="{Binding CMDPdf2Word}"/>
+
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Orientation="Horizontal" Background="LightGray">
+            <Button Command="{Binding CMDExitApplication}" Width="60" Height="50" Margin="0 0 4 0">
+                <StackPanel>
+                    <SymbolIcon Symbol="Cancel" Height="20"/>
+                    <TextBlock Text="Exit" FontSize="11"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <Border Grid.Row="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Child="{Binding PDFViewCtrl}"/>
+
+        <ProgressRing Grid.Row="2"
+                      Grid.Column="1"
+                      Grid.ColumnSpan="3"
+                      Width="150" Height="150"
+                      IsActive="{Binding IsProgressRingActive}"
+                      Visibility="{Binding ProgressRingVisible}"/>
+    </Grid>
+</Page>
