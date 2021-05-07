@@ -1,7 +1,9 @@
 # PDFCompare Sample
 
-This sample demonstrate how to use PDFTron's Text Difference and Visual Difference features by
-comparing two PDF documents and getting an result PDF document as result.
+This sample demonstrates how to use PDFTron's Text Difference and Visual Difference features by
+comparing two PDF documents and getting a result PDF document.
+
+It also allow to Sync scrolling of both opened documents.
 
 Platforms: x86, x64, ARM32 and ARM64
 
