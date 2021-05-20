@@ -14,6 +14,7 @@ This sample demonstrate how to implement the ViewerControl on a UWP application
 - Print PDF file
 - Share PDF file
 - Annotation Toolbar with multiples tools
+- Multiple Languages support: French, Italian, Spanish, German, Simplified Chinese, and Portuguese.
 
 Platforms: x86, x64, ARM32 and ARM64
 
