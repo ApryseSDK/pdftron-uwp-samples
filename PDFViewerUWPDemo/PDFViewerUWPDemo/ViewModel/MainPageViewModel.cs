@@ -64,6 +64,7 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             // Set Undo and Redo Manager
             UndoRedoManager undoRedoManager = new UndoRedoManager();
             _toolManagerPDF.SetUndoRedoManager(undoRedoManager);
+            _toolManagerPDF.IsSignatureDialogFullScreen = false;
 
             // AnnotationCommandBar is initialized with the ToolManager so it can attach all events to it
             _AnnotationCommandBar = new AnnotationCommandBar(_toolManagerPDF);
