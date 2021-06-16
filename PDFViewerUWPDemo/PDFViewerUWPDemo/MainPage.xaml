@@ -107,6 +107,17 @@
             </StackPanel>
         </StackPanel>
 
+        <SearchBox x:Name="searchText"
+                   Width="200"
+                   Height="40"
+                   Grid.Column="1"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   Margin="10 0 10 0"
+                   PlaceholderText="type text to highlight"                           
+                   QuerySubmitted="SearchBox_QuerySubmitted"
+                   QueryChanged="searchText_QueryChanged"/>
+
         <StackPanel Grid.Column="2" Orientation="Horizontal" Background="LightGray">
             <Button Command="{Binding CMDExitApplication}" Width="60" Height="50" Margin="0 0 4 0">
                 <StackPanel>

@@ -25,6 +25,7 @@ namespace PDFViewerUWP_PDFTron.ViewModel
         #region Private Properties
         ToolManager _toolManagerPDF;
         PDFPrintManager _printManager;
+        TextHighlighter mTextHighlighter = null;
         #endregion
 
         #region Defaults
@@ -174,7 +175,6 @@ namespace PDFViewerUWP_PDFTron.ViewModel
                 NotifyPropertyChanged(); 
             }
         }
-
         #endregion
 
         #region Public Commands
@@ -199,7 +199,43 @@ namespace PDFViewerUWP_PDFTron.ViewModel
         public ICommand CMDSaveDocAs { get; set; }
         #endregion
 
-        #region Operations
+        #region Public Operations
+        /// <summary>
+        /// Execute Text search and highlight the ones found
+        /// </summary>
+        /// <param name="text">Text to search</param>
+        public void SearchTextAndHighlight(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return;
+
+            TextSearchImpl(text);
+        }
+
+        /// <summary>
+        /// Cancel currenct Text search higlighter
+        /// </summary>
+        public void CancelSearchTextHighlight()
+        {
+            if (mTextHighlighter == null)
+                return;
+
+            mTextHighlighter.Detach();
+            mTextHighlighter = null;
+        }
+        #endregion
+
+        #region Private Operations
+
+        /// <summary>
+        /// Perform Text Search
+        /// </summary>
+        /// <param name="text"></param>
+        private void TextSearchImpl(string text)
+        {
+            mTextHighlighter = new TextHighlighter(PDFViewCtrl, text);
+        }
+
         /// <summary>
         /// Open dialog box to search and load PDF file
         /// 

@@ -12,10 +12,34 @@ namespace PDFViewerUWP_PDFTron
     public sealed partial class MainPage : Page
     {
 
+        MainPageViewModel mViewModel;
+
         public MainPage()
         {
             this.InitializeComponent();
-            this.DataContext = new MainPageViewModel();            
+            this.DataContext = mViewModel = new MainPageViewModel();            
+        }
+
+        bool mNeedClearQuery = false;
+        private void SearchBox_QuerySubmitted(SearchBox sender, SearchBoxQuerySubmittedEventArgs args)
+        {
+            if (string.IsNullOrEmpty(args.QueryText))
+                return;
+
+            mViewModel.SearchTextAndHighlight(searchText.QueryText);
+            mNeedClearQuery = true;
+        }
+
+        private void searchText_QueryChanged(SearchBox sender, SearchBoxQueryChangedEventArgs args)
+        {
+            if (string.IsNullOrEmpty(args.QueryText))
+            {
+                if (mNeedClearQuery)
+                {
+                    mViewModel.CancelSearchTextHighlight();
+                    mNeedClearQuery = false;
+                }
+            }
         }
     }
 }
