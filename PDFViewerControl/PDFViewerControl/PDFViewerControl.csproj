@@ -157,7 +157,7 @@
       <Version>6.2.11</Version>
     </PackageReference>
     <PackageReference Include="PDFTron.UWP">
-      <Version>9.0.0.77701</Version>
+      <Version>9.0.0.77725</Version>
     </PackageReference>
     <PackageReference Include="PDFTron.UWP.Tools">
       <Version>9.0.0</Version>
@@ -165,6 +165,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\GettingStarted.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\pdftron_exotic_font_resources.plugin" />
+    <Content Include="Resources\pdftron_layout_resources.plugin" />
+    <Content Include="Resources\pdftron_smart_substitution.plugin" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
