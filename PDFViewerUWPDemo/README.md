@@ -5,7 +5,7 @@ This sample demonstrate how to implement the PDFViewer on a UWP app using MVVM p
 Some of the features:
 - Thumbnails View Control
 - Annotation Toolbar
-- Conversion different formats to PDF
+- Conversion of different office formats (doc, docx, xls, xlsx, ppt, pptx) to PDF
 - Print PDF document
 - Drag and Drop PDF files
 
