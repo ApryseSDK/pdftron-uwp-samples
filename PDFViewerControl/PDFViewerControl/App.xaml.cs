@@ -31,8 +31,8 @@ namespace PDFViewerControl
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-            pdftron.PDFNet.Initialize("your key");
-            var version = pdftron.PDFNet.GetVersion();
+            // Initialize PDFTron's UWP SDK
+            pdftron.PDFNet.Initialize();
         }
 
         /// <summary>

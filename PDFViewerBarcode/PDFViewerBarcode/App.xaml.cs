@@ -30,6 +30,9 @@ namespace PDFViewerBarcode
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            // Initialize PDFTron's SDK in demo mode
+            pdftron.PDFNet.Initialize();
         }
 
         /// <summary>

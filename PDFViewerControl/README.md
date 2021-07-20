@@ -5,6 +5,7 @@ This sample demonstrate how to implement the ViewerControl on a UWP application
 ### Features
 - Convert differernt formats to PDF : .doc, .docx, .ppt, .pptx, .xls, .xlsx, .oxps, .xps, .jpeg, .jpg, .png, .bmp, .cbz
 - Open multiples PDFs
+- Compare PDF side by side with sync scrolling
 - Edit, Re-order, Duplicate, Delete and Export PDF pages
 - Multiple color modes (Dark, Sepia, Light, Custom colors)
 - Reduce PDF File size
@@ -14,7 +15,7 @@ This sample demonstrate how to implement the ViewerControl on a UWP application
 - Print PDF file
 - Share PDF file
 - Annotation Toolbar with multiples tools
-- Multiple Languages support: French, Italian, Spanish, German, Simplified Chinese, and Portuguese.
+- Multiple Languages support: French, Italian, Spanish, German, Simplified Chinese, Korean and Portuguese.
 
 Platforms: x86, x64, ARM32 and ARM64
 

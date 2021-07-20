@@ -33,9 +33,6 @@ namespace PDFViewerBarcode.ViewModel
             CMDOpenFile = new RelayCommand(OpenFile);
             CMDAddBarCode = new RelayCommand(AddBarcode);
 
-            // Initialize PDFTron's SDK in demo mode
-            pdftron.PDFNet.Initialize("");
-
             // Initialize PDF View Control
             PDFViewCtrl = new PDFViewCtrl();
             PDFViewCtrl.PointerPressed += PDFViewCtrl_PointerPressed;

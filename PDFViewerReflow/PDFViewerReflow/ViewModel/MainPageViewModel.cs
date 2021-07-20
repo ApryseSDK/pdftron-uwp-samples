@@ -17,7 +17,7 @@ namespace PDFViewerReflow
         #region Private
         private PDFViewCtrl _pDFViewCtrl;
         private ReflowView _reflowViewCtrl;
-        private bool _IsPDFVisible = true;
+        private bool _IsPDFVisible = false;
         #endregion
 
         public MainPageViewModel()
