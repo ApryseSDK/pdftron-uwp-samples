@@ -233,6 +233,12 @@ namespace PDFViewerUWP_PDFTron.ViewModel
         /// <param name="text"></param>
         private void TextSearchImpl(string text)
         {
+            if (mTextHighlighter != null)
+            {
+                mTextHighlighter.Detach();
+                mTextHighlighter = null;
+            }
+            
             mTextHighlighter = new TextHighlighter(PDFViewCtrl, text);
         }
 
