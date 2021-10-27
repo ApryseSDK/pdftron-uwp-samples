@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Input;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Windows.Devices.Input;
 using Windows.UI.Xaml;
 using Windows.Storage;
@@ -10,13 +12,13 @@ using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Resources;
 using Windows.Graphics.Printing;
+using Windows.ApplicationModel.DataTransfer;
 
 using pdftron.PDF;
 using pdftron.PDF.Tools;
 using pdftron.PDF.Tools.Controls;
-using System.Collections.Generic;
 using pdftron.Filters;
-using Windows.ApplicationModel.DataTransfer;
+
 
 namespace PDFViewerUWP_PDFTron.ViewModel
 {
@@ -61,6 +63,7 @@ namespace PDFViewerUWP_PDFTron.ViewModel
 
             // ToolManager is initialized with the PDFViewCtrl and it activates all available tools
             _toolManagerPDF = new ToolManager(PDFViewCtrl);
+            _toolManagerPDF.OnShowContextMenu += _toolManagerPDF_OnShowContextMenu;
 
             // Set Undo and Redo Manager
             UndoRedoManager undoRedoManager = new UndoRedoManager();
@@ -495,6 +498,20 @@ namespace PDFViewerUWP_PDFTron.ViewModel
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Customize which buttons should be displayed on the Context Menu
+        /// </summary>
+        private void _toolManagerPDF_OnShowContextMenu(ContextMenuControl menu, ShowingContextMenuEventArgs eventArgs)
+        {
+            if (menu == null)
+                return;
+
+            // remove sound annotation MIC since it is only compatible with ViewerControl
+            var btnSound = menu.ButtonCollection.Where(x => x.Tag != null && x.Tag.ToString() == "mic").FirstOrDefault();
+            if (btnSound != null)
+                menu.ButtonCollection.Remove(btnSound);
         }
         #endregion
     }
