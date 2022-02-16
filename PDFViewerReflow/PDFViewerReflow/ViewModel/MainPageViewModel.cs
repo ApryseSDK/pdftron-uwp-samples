@@ -29,12 +29,16 @@ namespace PDFViewerReflow
             // Load a document into PDFDoc
             PDFDoc doc = new PDFDoc("Resources/LoremIpsum.pdf");
 
-            // Attach the doc to the Reflow view control
-            _reflowViewCtrl = new ReflowView(doc, 1);
-
             // Attach the doc to the PDF view control
             _pDFViewCtrl = new PDFViewCtrl();
             _pDFViewCtrl.SetDoc(doc);
+
+            // Attach the doc to the Reflow view control
+            _reflowViewCtrl = new ReflowView(doc);
+            _reflowViewCtrl.CurrentPage = 1;
+            _reflowViewCtrl.IsEditingEnabled = true;
+            _reflowViewCtrl.ToolManager = new ToolManager(PDFViewCtrl);
+            _reflowViewCtrl.DocumentChanged += _reflowViewCtrl_DocumentChanged;
         }
 
         #region Public Properties
@@ -82,6 +86,7 @@ namespace PDFViewerReflow
             else
             {
                 // Update viewer to Reflow view
+                ReflowViewCtrl.CurrentPage = 1; // request first page to update any changes done in the PDFViewCtrl
                 IsPDFVisible = true;
                 ToggleButtonText = "PDF";
                 PDFVisibility = Visibility.Collapsed;
@@ -97,6 +102,17 @@ namespace PDFViewerReflow
         private void ExitApplication()
         {
             CoreApplication.Exit();
+        }
+        #endregion
+
+        #region Events
+        private void _reflowViewCtrl_DocumentChanged()
+        {
+            if (PDFViewCtrl == null)
+                return;
+
+            // refresh the PDFViewCtrl on ea annotation done in reflow
+            PDFViewCtrl.Update();
         }
         #endregion
     }
