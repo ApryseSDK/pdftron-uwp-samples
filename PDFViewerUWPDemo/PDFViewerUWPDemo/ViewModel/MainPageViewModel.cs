@@ -18,7 +18,7 @@ using pdftron.PDF;
 using pdftron.PDF.Tools;
 using pdftron.PDF.Tools.Controls;
 using pdftron.Filters;
-
+using Windows.UI.Xaml.Controls;
 
 namespace PDFViewerUWP_PDFTron.ViewModel
 {
@@ -273,8 +273,12 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             catch (Exception e)
             {
                 // NOTE: If file already opened it will cause an exception
-                var msg = new MessageDialog(e.Message);
-                _ = msg.ShowAsync();
+                var msg = new ContentDialog()
+                {
+                    Content = e.Message,
+                    PrimaryButtonText = "OK"
+                };
+                await msg.ShowAsync();
                 return;
             }
 
@@ -296,6 +300,10 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             filePicker.ViewMode = PickerViewMode.List;
             filePicker.FileTypeFilter.Add(".doc");
             filePicker.FileTypeFilter.Add(".docx");
+            filePicker.FileTypeFilter.Add(".xls");
+            filePicker.FileTypeFilter.Add(".xlsx");
+            filePicker.FileTypeFilter.Add(".ppt");
+            filePicker.FileTypeFilter.Add(".pptx");
 
             StorageFile file = await filePicker.PickSingleFileAsync();
 
@@ -310,8 +318,12 @@ namespace PDFViewerUWP_PDFTron.ViewModel
             catch (Exception e)
             {
                 // NOTE: If file already opened it will cause an exception
-                var msg = new MessageDialog(e.Message);
-                _ = msg.ShowAsync();
+                var msg = new ContentDialog()
+                { 
+                    Content = e.Message,
+                    PrimaryButtonText = "OK" 
+                };
+                await msg.ShowAsync();
                 return;
             }
 
