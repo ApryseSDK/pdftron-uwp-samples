@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,6 +16,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+
 
 namespace PDFViewerControl
 {
@@ -44,6 +47,11 @@ namespace PDFViewerControl
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
+            // Enabling depreacted back button behavior (no longer recommended use with UWP apps)
+            // MSF doc: https://docs.microsoft.com/en-us/windows/apps/design/basics/navigation-history-and-backwards-navigation
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -73,6 +81,21 @@ namespace PDFViewerControl
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
+            }
+        }
+
+        /// <summary>
+        /// Handle the system request to navigate back the current selected page
+        /// </summary>
+        private void App_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            var rootFrame = Window.Current.Content as Frame;
+            if (rootFrame == null)
+                return;
+
+            if (rootFrame.CanGoBack)
+            {
+                rootFrame.GoBack();
             }
         }
 

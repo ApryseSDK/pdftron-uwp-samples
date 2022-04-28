@@ -9,14 +9,14 @@ using Windows.Storage;
 
 namespace PDFViewerControl.ViewModel
 {
-    class MainPageViewModel : BaseViewModel
+    public class MainPageViewModel : BaseViewModel
     {
         public MainPageViewModel()
         {
-            _ = Init(); // Init viewer control with sample PDF file
+
         }
 
-        private async Task Init()
+        public async Task InitAsync()
         {
             StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Resources/GettingStarted.pdf"));
             if (file != null)
