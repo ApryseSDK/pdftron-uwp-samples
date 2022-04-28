@@ -18,6 +18,10 @@ namespace PDFViewerControl.ViewModel
 
         public async Task InitAsync()
         {
+            // NOTE: here is a good place for customizing the UI of the ViewerControl
+            //ViewerControl.ShowPrintOption = false;
+            //ViewerControl.ShowSaveOption = false;
+
             StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Resources/GettingStarted.pdf"));
             if (file != null)
                 await ViewerControl.ActivateWithFileAsync(file);
