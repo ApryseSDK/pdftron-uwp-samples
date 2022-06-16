@@ -160,7 +160,7 @@
       <Version>6.2.10</Version>
     </PackageReference>
     <PackageReference Include="PDFTron.UWP">
-      <Version>9.2.2.79504</Version>
+      <Version>9.2.3.79579</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

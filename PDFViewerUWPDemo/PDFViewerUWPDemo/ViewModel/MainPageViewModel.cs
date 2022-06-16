@@ -63,6 +63,7 @@ namespace PDFViewerUWP_PDFTron.ViewModel
 
             // ToolManager is initialized with the PDFViewCtrl and it activates all available tools
             _toolManagerPDF = new ToolManager(PDFViewCtrl);
+            _toolManagerPDF.IsRichTextEnabled = true;
             _toolManagerPDF.OnShowContextMenu += _toolManagerPDF_OnShowContextMenu;
 
             // Set Undo and Redo Manager
