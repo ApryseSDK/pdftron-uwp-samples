@@ -23,10 +23,19 @@ namespace PDFViewerControl
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public MainPageViewModel ViewModel { get; private set; }
+
         public MainPage()
         {
             this.InitializeComponent();
-            this.DataContext = new MainPageViewModel();
+            this.DataContext = ViewModel = new MainPageViewModel();
+
+            this.Loaded += MainPage_Loaded;
+        }
+
+        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.InitAsync();
         }
     }
 }
