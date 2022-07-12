@@ -39,11 +39,14 @@ namespace PDFViewerControl
             await ViewModel.InitAsync();
         }
 
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             if (ViewModel != null)
             {
                 ViewModel.ViewerControl.Dispose();
+
+                // To ensure all temporary files created and managed by the ViewerControl are deleted, just call Full cleanup
+                await pdftron.PDF.Tools.Utilities.DocumentManager.Instance.PerformFullCleanupAsync();
             }
 
             base.OnNavigatingFrom(e);
