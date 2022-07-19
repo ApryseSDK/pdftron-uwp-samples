@@ -13,7 +13,7 @@ namespace PDFViewerControl.ViewModel
     {
         public MainPageViewModel()
         {
-
+            _viewerControl = new ViewerControl();
         }
 
         public async Task InitAsync()
@@ -22,12 +22,14 @@ namespace PDFViewerControl.ViewModel
             //ViewerControl.ShowPrintOption = false;
             //ViewerControl.ShowSaveOption = false;
 
-            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Resources/GettingStarted.pdf"));
+            // NOTE: initialize with PDF, Image, Office, etc...
+            //var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Resources/GettingStarted.pdf"));
+            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Resources/windows_bg.jpg"));
             if (file != null)
                 await ViewerControl.ActivateWithFileAsync(file);
         }
 
-        ViewerControl _viewerControl = new ViewerControl();
+        ViewerControl _viewerControl;
         public ViewerControl ViewerControl 
         {
             get { return _viewerControl; }
